@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package api.snakeAndLadder;
+
+option go_package = "snakeAndLadder";
+
+message GameSetting {
+    repeated string user_ids = 1;
+    int32 n = 2;
+    int32 snake_cnt = 3;
+    int32 ladder_cnt = 4;
+    int32 max_step = 5;
+}
+
+message GameMeta {
+    repeated int32 snake_tails = 1;
+    repeated int32 snake_heads = 2;
+    repeated int32 ladder_tails = 3;
+    repeated int32 ladder_heads = 4;
+}
+
+message Status {
+    int32 code = 1;
+    string err_msg = 3;
+}
+
+message UserRecord {
+    string user_id = 1;
+    repeated int32 steps = 2;
+    repeated int32 positions = 3;
+}
+
+message Visitor {
+    oneof has_user_id {
+        string user_id = 1;
+    }
+}

@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package api.snakeAndLadder;
+
+import "snakeAndLadder/api/util.proto";
+
+option go_package = "snakeAndLadder";
+
+service SnakeAndLadder {
+    rpc NewGame(NewGame.Req) returns (NewGame.Resp) {};
+    rpc EndGame(EndGame.Req) returns (EndGame.Resp) {};
+    rpc MoveForward(MoveForward.Req) returns (MoveForward.Resp){};
+    rpc FetchReplay(FetchReplay.Req) returns (FetchReplay.Resp){};
+}
+
+
+message NewGame {
+    message Req {
+        Visitor visitor = 1;
+        GameSetting game_setting = 2;
+    }
+    message Resp {
+        Status status = 1;
+        string game_id =2;
+        GameMeta game_meta = 3;
+    }
+}
+
+message EndGame {
+    message Req {
+        Visitor visitor = 1;
+        string game_id = 2;
+    }
+    message Resp {
+        Status status = 1;
+    }
+}
+
+message MoveForward {
+    message Req {
+        Visitor visitor = 1;
+        string user_id = 2;
+        string game_id = 3;
+    }
+    message Resp {
+        Status status = 1;
+        int32 step = 2;
+        int32 position= 3;
+    }
+}
+
+message FetchReplay {
+    message Req {
+        string game_id = 1;
+    }
+    message Resp {
+        Status status = 1;
+        repeated string user_ids = 2;
+        repeated UserRecord user_records = 3;
+    }
+}
